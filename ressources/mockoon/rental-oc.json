@@ -2,10 +2,10 @@
   "uuid": "7bd3e9f8-63b1-4862-98a8-f4f4cf4806a0",
   "lastMigration": 27,
   "name": "Rental oc",
-  "endpointPrefix": "api/",
+  "endpointPrefix": "api",
   "latency": 0,
   "port": 3001,
-  "hostname": "127.0.0.1",
+  "hostname": "",
   "routes": [
     {
       "uuid": "822a0106-1c27-4f6b-92d0-89da3da205cf",

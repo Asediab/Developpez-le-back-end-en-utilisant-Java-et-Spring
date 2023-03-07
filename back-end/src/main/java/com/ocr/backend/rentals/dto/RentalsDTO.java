@@ -1,45 +1,24 @@
-package com.ocr.backend.rentals.model;
+package com.ocr.backend.rentals.dto;
 
-import jakarta.persistence.*;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import jakarta.persistence.Column;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Objects;
 
-@Entity
-@EntityListeners(AuditingEntityListener.class)
-public class Rentals implements Serializable {
+public class RentalsDTO implements Serializable {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "id")
   private Long id;
-
-  @Column(nullable = false)
   private String name;
-
-  @Column(nullable = false)
   private int surface;
-
-  @Column(nullable = false)
   private int price;
-
-  @Column(nullable = false)
   private String picture;
-
-  @Column(nullable = false)
   private String description;
-
-  @Column(nullable = false)
   private long ownerId;
-
-  @Column(nullable = false)
   private Date createdAt;
-
-  @Column(nullable = false)
   private Date updatedAT;
 
-  public Rentals() {
+  public RentalsDTO() {
   }
 
   public Long getId() {
@@ -112,5 +91,40 @@ public class Rentals implements Serializable {
 
   public void setUpdatedAT(Date updatedAT) {
     this.updatedAT = updatedAT;
+  }
+
+  @Override
+  public String toString() {
+    return "RentalsDTO{" +
+      "id=" + id +
+      ", name='" + name + '\'' +
+      ", surface=" + surface +
+      ", price=" + price +
+      ", picture='" + picture + '\'' +
+      ", description='" + description + '\'' +
+      ", ownerId=" + ownerId +
+      ", createdAt=" + createdAt +
+      ", updatedAT=" + updatedAT +
+      '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof RentalsDTO that)) return false;
+    return surface == that.surface &&
+      price == that.price &&
+      ownerId == that.ownerId &&
+      id.equals(that.id) &&
+      name.equals(that.name) &&
+      Objects.equals(picture, that.picture) &&
+      description.equals(that.description) &&
+      createdAt.equals(that.createdAt) &&
+      Objects.equals(updatedAT, that.updatedAT);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, surface, price, picture, description, ownerId, createdAt, updatedAT);
   }
 }
