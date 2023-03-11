@@ -1,4 +1,4 @@
-package com.ocr.backend.rentals.web.exeption;
+package com.ocr.backend.exeption;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

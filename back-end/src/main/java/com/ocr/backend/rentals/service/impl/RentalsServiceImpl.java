@@ -4,7 +4,7 @@ import com.ocr.backend.rentals.dao.RentalsDAO;
 import com.ocr.backend.rentals.dto.RentalsDTO;
 import com.ocr.backend.rentals.model.Rentals;
 import com.ocr.backend.rentals.service.RentalsService;
-import com.ocr.backend.rentals.web.exeption.NotFoundException;
+import com.ocr.backend.exeption.NotFoundException;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
