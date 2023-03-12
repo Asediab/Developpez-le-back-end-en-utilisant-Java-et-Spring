@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class MessagesServiceImpl implements MessagesService {
 
@@ -24,15 +26,21 @@ public class MessagesServiceImpl implements MessagesService {
 
   @Override
   public MessageDTO save(MessageDTO messageDTO) {
-    LOGGER.info("Message saved");
+    messageDTO.setCreatedAt(new Date());
     return toDto(messageDAO.save(toEntity(messageDTO)));
   }
 
   private MessageDTO toDto(Message message) {
-    return modelMapper.map(message, MessageDTO.class);
+    MessageDTO dto = modelMapper.map(message, MessageDTO.class);
+    dto.setRental_id(message.getRentalId());
+    dto.setUser_id(message.getUserId());
+    return dto;
   }
 
   private Message toEntity(MessageDTO messageDTO) {
-    return modelMapper.map(messageDTO, Message.class);
+    Message message = modelMapper.map(messageDTO, Message.class);
+    message.setUserId(messageDTO.getUser_id());
+    message.setRentalId(messageDTO.getRental_id());
+    return message;
   }
 }

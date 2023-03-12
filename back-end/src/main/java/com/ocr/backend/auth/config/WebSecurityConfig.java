@@ -33,7 +33,8 @@ public class WebSecurityConfig {
     "/webjars/**",
     "/v3/api-docs/**",
     "/swagger-ui/**",
-    "/api/auth/**"
+    "/api/auth/**",
+    "/api/test/**"
   };
 
   @Autowired

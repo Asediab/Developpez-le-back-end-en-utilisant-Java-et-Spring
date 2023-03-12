@@ -1,7 +1,9 @@
 package com.ocr.backend.rentals.dto;
 
 import jakarta.persistence.Column;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
@@ -12,7 +14,7 @@ public class RentalsDTO implements Serializable {
   private String name;
   private int surface;
   private int price;
-  private String picture;
+  private MultipartFile picture;
   private String description;
   private long ownerId;
   private Date createdAt;
@@ -53,11 +55,11 @@ public class RentalsDTO implements Serializable {
     this.price = price;
   }
 
-  public String getPicture() {
+  public MultipartFile getPicture() {
     return picture;
   }
 
-  public void setPicture(String picture) {
+  public void setPicture(MultipartFile picture) {
     this.picture = picture;
   }
 

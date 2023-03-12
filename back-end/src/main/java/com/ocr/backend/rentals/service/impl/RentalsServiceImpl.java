@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -48,9 +49,12 @@ public class RentalsServiceImpl implements RentalsService {
   }
 
   @Override
-  public RentalsDTO saveRentals(RentalsDTO rentalsDTO) {
+  public RentalsDTO saveRentals(RentalsDTO rentalsDTO, String picture) {
+    Rentals rentals = toEntity(rentalsDTO);
+    rentals.setPicture(picture);
+    rentals.setCreatedAt(new Date());
     LOGGER.info("Rentals saved");
-    return toDto(rentalsDAO.save(toEntity(rentalsDTO)));
+    return toDto(rentalsDAO.save(rentals));
   }
 
   private RentalsDTO toDto(Rentals rentals) {

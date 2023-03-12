@@ -2,6 +2,7 @@ package com.ocr.backend.messages.web.controller;
 
 import com.ocr.backend.messages.dto.MessageDTO;
 import com.ocr.backend.messages.service.MessagesService;
+import com.ocr.backend.payload.MessageResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/messages")
+@RequestMapping("api/test/messages")
 @SecurityRequirement(name = "bearerAuth")
 @Tag(name = "Message", description = "The Message API. Contains all the operations that can be performed with a Message.")
 public class MessagesController {
@@ -25,10 +26,10 @@ public class MessagesController {
 
   @Operation(summary = "Save Message")
   @PostMapping
-  public ResponseEntity<Void> saveMessage(@RequestBody MessageDTO messageDTO) {
+  public ResponseEntity<?> saveMessage(@RequestBody MessageDTO messageDTO) {
   MessageDTO message = service.save(messageDTO);
   if (message != null) {
-    return ResponseEntity.status(HttpStatus.CREATED).build();
+    return ResponseEntity.ok(new MessageResponse("Message send with success"));
   }
   return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }

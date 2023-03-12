@@ -4,14 +4,14 @@ import jakarta.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Rentals implements Serializable {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Long id;
 
@@ -27,7 +27,7 @@ public class Rentals implements Serializable {
   @Column(nullable = false)
   private String picture;
 
-  @Column(nullable = false)
+  @Column(nullable = false, length = 2000)
   private String description;
 
   @Column(nullable = false)
@@ -36,7 +36,7 @@ public class Rentals implements Serializable {
   @Column(nullable = false)
   private Date createdAt;
 
-  @Column(nullable = false)
+  @Column(nullable = true)
   private Date updatedAT;
 
   public Rentals() {

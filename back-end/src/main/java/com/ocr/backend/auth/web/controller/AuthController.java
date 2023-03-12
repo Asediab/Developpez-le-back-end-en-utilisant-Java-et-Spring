@@ -39,9 +39,25 @@ public class AuthController {
   @Operation(summary = "Login an user")
   @PostMapping("/login")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    return createToken(loginRequest.getEmail(), loginRequest.getPassword());
+  }
+  @Operation(summary = "Create new user")
+  @PostMapping("/register")
+  public ResponseEntity<?> registerUser(@Valid @RequestBody SingupRequest signUpRequest) {
+    if (service.existsByEmail(signUpRequest.getEmail())) {
+      return ResponseEntity
+        .badRequest()
+        .body(new MessageResponse("Error: Email is already taken!"));
+    }
 
+    service.createUser(signUpRequest);
+
+    return createToken(signUpRequest.getEmail(), signUpRequest.getPassword());
+  }
+
+  private ResponseEntity<?> createToken(String mail, String password) {
     Authentication authentication = authenticationManager.authenticate(
-      new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+      new UsernamePasswordAuthenticationToken(mail, password));
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
     String jwt = jwtUtils.generateJwtToken(authentication);
@@ -53,18 +69,5 @@ public class AuthController {
       userDetails.getUsername(),
       userDetails.getUpdatedAt(),
       userDetails.getUpdatedAt()));
-  }
-  @Operation(summary = "Create new user")
-  @PostMapping("/register")
-  public ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody SingupRequest signUpRequest) {
-    if (service.existsByEmail(signUpRequest.getEmail())) {
-      return ResponseEntity
-        .badRequest()
-        .body(new MessageResponse("Error: Email is already taken!"));
-    }
-
-    service.createUser(signUpRequest);
-
-    return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
 }

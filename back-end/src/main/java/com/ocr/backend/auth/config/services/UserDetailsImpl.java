@@ -17,9 +17,6 @@ public class UserDetailsImpl implements UserDetails {
   private String mail;
 
   private String name;
-  //TODO check if needed property admin
-  private Boolean admin;
-
   @JsonIgnore
   private String password;
 
@@ -55,7 +52,7 @@ public class UserDetailsImpl implements UserDetails {
 
   @Override
   public String getUsername() {
-    return mail;
+    return this.mail;
   }
 
   @Override
@@ -106,11 +103,11 @@ public class UserDetailsImpl implements UserDetails {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (!(o instanceof UserDetailsImpl that)) return false;
-    return id.equals(that.id) && mail.equals(that.mail) && name.equals(that.name) && admin.equals(that.admin) && password.equals(that.password);
+    return id.equals(that.id) && mail.equals(that.mail) && password.equals(that.password);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, mail, name, admin, password);
+    return Objects.hash(id, mail, password);
   }
 }

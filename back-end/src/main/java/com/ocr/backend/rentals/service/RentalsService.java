@@ -8,5 +8,5 @@ public interface RentalsService {
 
   List<RentalsDTO> getAllRentals();
   RentalsDTO getRentalsById(Long rentalsId);
-  RentalsDTO saveRentals(RentalsDTO rentalsDTO);
+  RentalsDTO saveRentals(RentalsDTO rentalsDTO, String picture);
 }

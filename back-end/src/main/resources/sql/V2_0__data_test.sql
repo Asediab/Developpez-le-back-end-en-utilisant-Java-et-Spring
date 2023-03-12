@@ -1,0 +1,1 @@
+INSERT INTO test.users (id, created_at, email, name, password, updated_at) VALUES (1, '2023-03-12 16:14:39.000000', 'user@user.com', 'User', '$2a$10$a3w89n.b/aRcUYPwdPlO8.89WhanqcUYmDssnr0BgIQ98cK9bxN0q', '2023-03-12 16:15:19.000000');

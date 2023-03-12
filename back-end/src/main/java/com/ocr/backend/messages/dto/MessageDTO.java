@@ -7,9 +7,9 @@ import java.util.Objects;
 public class MessageDTO implements Serializable {
   private Long id;
 
-  private long rentalId;
+  private long rental_id;
 
-  private long userId;
+  private long user_id;
 
   private String message;
 
@@ -28,20 +28,20 @@ public class MessageDTO implements Serializable {
     this.id = id;
   }
 
-  public long getRentalId() {
-    return rentalId;
+  public long getRental_id() {
+    return rental_id;
   }
 
-  public void setRentalId(long rentalId) {
-    this.rentalId = rentalId;
+  public void setRental_id(long rental_id) {
+    this.rental_id = rental_id;
   }
 
-  public long getUserId() {
-    return userId;
+  public long getUser_id() {
+    return user_id;
   }
 
-  public void setUserId(long userId) {
-    this.userId = userId;
+  public void setUser_id(long user_id) {
+    this.user_id = user_id;
   }
 
   public String getMessage() {
@@ -72,8 +72,8 @@ public class MessageDTO implements Serializable {
   public String toString() {
     return "MessageDTO{" +
       "id=" + id +
-      ", rentalId=" + rentalId +
-      ", userId=" + userId +
+      ", rentalId=" + rental_id +
+      ", userId=" + user_id +
       ", message='" + message + '\'' +
       ", createdAt=" + createdAt +
       ", updatedAt=" + updatedAt +
@@ -84,8 +84,8 @@ public class MessageDTO implements Serializable {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (!(o instanceof MessageDTO that)) return false;
-    return rentalId == that.rentalId &&
-      userId == that.userId &&
+    return rental_id == that.rental_id &&
+      user_id == that.user_id &&
       id.equals(that.id) &&
       message.equals(that.message) &&
       createdAt.equals(that.createdAt) &&
@@ -94,6 +94,6 @@ public class MessageDTO implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, rentalId, userId, message, createdAt, updatedAt);
+    return Objects.hash(id, rental_id, user_id, message, createdAt, updatedAt);
   }
 }
