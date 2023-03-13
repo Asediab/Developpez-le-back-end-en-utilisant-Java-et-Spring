@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/test/messages")
+//TODO change after config Security
+@RequestMapping("api/messages")
 @SecurityRequirement(name = "bearerAuth")
 @Tag(name = "Message", description = "The Message API. Contains all the operations that can be performed with a Message.")
 public class MessagesController {

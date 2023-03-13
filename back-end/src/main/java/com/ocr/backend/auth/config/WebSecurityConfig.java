@@ -33,8 +33,8 @@ public class WebSecurityConfig {
     "/webjars/**",
     "/v3/api-docs/**",
     "/swagger-ui/**",
-    "/api/auth/**",
-    "/api/test/**"
+    "/api/auth/login",
+    "/api/auth/register"
   };
 
   @Autowired
@@ -75,7 +75,7 @@ public class WebSecurityConfig {
       .and()
       .authorizeHttpRequests().requestMatchers(AUTH_WHITELIST).permitAll()
       .requestMatchers("/api/**").authenticated()
-      .anyRequest().permitAll();
+      .anyRequest().authenticated();
 
     http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 

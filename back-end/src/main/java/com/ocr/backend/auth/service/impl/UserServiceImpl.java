@@ -1,12 +1,17 @@
 package com.ocr.backend.auth.service.impl;
 
 import com.ocr.backend.auth.dao.UserDAO;
+import com.ocr.backend.auth.model.IAuthenticationFacade;
 import com.ocr.backend.payload.SingupRequest;
 import com.ocr.backend.auth.dto.UserDTO;
 import com.ocr.backend.auth.model.User;
 import com.ocr.backend.auth.service.UserService;
 import com.ocr.backend.exeption.NotFoundException;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +25,8 @@ public class UserServiceImpl implements UserService {
   private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
   private final UserDAO userDAO;
+  @Autowired
+  private IAuthenticationFacade authenticationFacade;
 
   public UserServiceImpl(UserDAO userDAO) {
     this.userDAO = userDAO;
@@ -45,6 +52,17 @@ public class UserServiceImpl implements UserService {
   @Override
   public Boolean existsByEmail(String email) {
     return this.userDAO.existsByEmail(email);
+  }
+
+  @Override
+  public UserDTO getCurrentUser() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if (!(authentication instanceof AnonymousAuthenticationToken)) {
+      String currentUserName = authentication.getName();
+      User user = userDAO.findByEmail(currentUserName).orElseThrow(() -> new NotFoundException("User with this Mail not found"));
+      return toDto(user);
+    }
+    return null;
   }
 
   private UserDTO toDto(User userToDto) {

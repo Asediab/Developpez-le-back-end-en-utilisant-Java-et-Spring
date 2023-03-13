@@ -6,19 +6,19 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
 
-public class RentalsDTO implements Serializable {
+public class RentalsResponse implements Serializable {
 
   private Long id;
   private String name;
   private int surface;
   private int price;
-  private MultipartFile picture;
+  private String picture;
   private String description;
   private long ownerId;
   private Date createdAt;
   private Date updatedAT;
 
-  public RentalsDTO() {
+  public RentalsResponse() {
   }
 
   public Long getId() {
@@ -37,11 +37,11 @@ public class RentalsDTO implements Serializable {
     this.name = name;
   }
 
-  public MultipartFile getPicture() {
+  public String getPicture() {
     return picture;
   }
 
-  public void setPicture(MultipartFile picture) {
+  public void setPicture(String picture) {
     this.picture = picture;
   }
 
@@ -111,7 +111,7 @@ public class RentalsDTO implements Serializable {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof RentalsDTO that)) return false;
+    if (!(o instanceof RentalsResponse that)) return false;
     return surface == that.surface && price == that.price && ownerId == that.ownerId && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(picture, that.picture) && Objects.equals(description, that.description) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAT, that.updatedAT);
   }
 

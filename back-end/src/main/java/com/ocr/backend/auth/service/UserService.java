@@ -9,4 +9,5 @@ public interface UserService {
   UserDTO findById(long id);
 
   Boolean existsByEmail(String email);
+  UserDTO getCurrentUser();
 }
