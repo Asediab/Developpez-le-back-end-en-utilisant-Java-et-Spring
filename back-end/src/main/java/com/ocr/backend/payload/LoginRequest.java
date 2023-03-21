@@ -2,16 +2,16 @@ package com.ocr.backend.payload;
 
 public class LoginRequest {
 
-  private String login;
+  private String email;
 
   private String password;
 
-  public String getLogin() {
-    return login;
+  public String getEmail() {
+    return email;
   }
 
-  public void setLogin(String login) {
-    this.login = login;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public String getPassword() {
@@ -20,5 +20,13 @@ public class LoginRequest {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  @Override
+  public String toString() {
+    return "LoginRequest{" +
+      "email='" + email + '\'' +
+      ", password='" + password + '\'' +
+      '}';
   }
 }

@@ -1,7 +1,7 @@
 package com.ocr.backend.auth.dto;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class UserDTO implements Serializable {
@@ -11,19 +11,19 @@ public class UserDTO implements Serializable {
 
   private String name;
 
-  private LocalDateTime createdAt;
+  private LocalDate created_at;
 
-  private LocalDateTime updatedAt;
+  private LocalDate updated_at;
 
   public UserDTO() {
   }
 
-  public UserDTO(Long id, String email, String name, LocalDateTime createdAt, LocalDateTime updatedAt) {
+  public UserDTO(Long id, String email, String name, LocalDate createdAt, LocalDate updatedAt) {
     this.id = id;
     this.email = email;
     this.name = name;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
+    this.created_at = createdAt;
+    this.updated_at = updatedAt;
   }
 
   public Long getId() {
@@ -50,20 +50,20 @@ public class UserDTO implements Serializable {
     this.name = name;
   }
 
-  public LocalDateTime getCreatedAt() {
-    return createdAt;
+  public LocalDate getCreated_at() {
+    return created_at;
   }
 
-  public void setCreatedAt(LocalDateTime createdAt) {
-    this.createdAt = createdAt;
+  public void setCreated_at(LocalDate created_at) {
+    this.created_at = created_at;
   }
 
-  public LocalDateTime getUpdatedAt() {
-    return updatedAt;
+  public LocalDate getUpdated_at() {
+    return updated_at;
   }
 
-  public void setUpdatedAt(LocalDateTime updatedAt) {
-    this.updatedAt = updatedAt;
+  public void setUpdated_at(LocalDate updated_at) {
+    this.updated_at = updated_at;
   }
 
   @Override
@@ -72,8 +72,8 @@ public class UserDTO implements Serializable {
       "id=" + id +
       ", email='" + email + '\'' +
       ", name='" + name + '\'' +
-      ", createdAt=" + createdAt +
-      ", updatedAt=" + updatedAt +
+      ", created_at=" + created_at +
+      ", updated_at=" + updated_at +
       '}';
   }
 
@@ -81,11 +81,11 @@ public class UserDTO implements Serializable {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (!(o instanceof UserDTO userDTO)) return false;
-    return id.equals(userDTO.id) && email.equals(userDTO.email) && name.equals(userDTO.name) && createdAt.equals(userDTO.createdAt) && Objects.equals(updatedAt, userDTO.updatedAt);
+    return id.equals(userDTO.id) && email.equals(userDTO.email) && name.equals(userDTO.name) && created_at.equals(userDTO.created_at) && Objects.equals(updated_at, userDTO.updated_at);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, email, name, createdAt, updatedAt);
+    return Objects.hash(id, email, name, created_at, updated_at);
   }
 }

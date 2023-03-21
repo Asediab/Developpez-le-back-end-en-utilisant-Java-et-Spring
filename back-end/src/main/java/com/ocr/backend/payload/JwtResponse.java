@@ -1,25 +1,21 @@
 package com.ocr.backend.payload;
 
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 public class JwtResponse {
 
   private String token;
-  private String type = "Bearer";
-  private Long id;
+  @JsonIgnore
   private String name;
+  @JsonIgnore
   private String email;
-  private LocalDateTime createdAt;
 
-  private LocalDateTime updatedAt;
 
-  public JwtResponse(String accessToken, Long id, String name,String email, LocalDateTime createdAt, LocalDateTime updatedAt) {
-    this.token = accessToken;
-    this.id = id;
-    this.name = name;
+  public JwtResponse(String accessToken, String name,String email) {
     this.email = email;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
+    this.name = name;
+    this.token = accessToken;
   }
 
   public String getToken() {
@@ -28,22 +24,6 @@ public class JwtResponse {
 
   public void setToken(String token) {
     this.token = token;
-  }
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
   }
 
   public String getName() {
@@ -60,21 +40,5 @@ public class JwtResponse {
 
   public void setEmail(String email) {
     this.email = email;
-  }
-
-  public LocalDateTime getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setCreatedAt(LocalDateTime createdAt) {
-    this.createdAt = createdAt;
-  }
-
-  public LocalDateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setUpdatedAt(LocalDateTime updatedAt) {
-    this.updatedAt = updatedAt;
   }
 }

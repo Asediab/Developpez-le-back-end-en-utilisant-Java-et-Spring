@@ -1,9 +1,7 @@
 package com.ocr.backend.rentals.dto;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class RentalsResponse implements Serializable {
@@ -14,9 +12,9 @@ public class RentalsResponse implements Serializable {
   private int price;
   private String picture;
   private String description;
-  private long ownerId;
-  private Date createdAt;
-  private Date updatedAT;
+  private long owner_id;
+  private LocalDate created_at;
+  private LocalDate update_at;
 
   public RentalsResponse() {
   }
@@ -69,42 +67,44 @@ public class RentalsResponse implements Serializable {
     this.description = description;
   }
 
-  public long getOwnerId() {
-    return ownerId;
+  public long getOwner_id() {
+    return owner_id;
   }
 
-  public void setOwnerId(long ownerId) {
-    this.ownerId = ownerId;
+  public void setOwner_id(long owner_id) {
+    this.owner_id = owner_id;
   }
 
-  public Date getCreatedAt() {
-    return createdAt;
+  public LocalDate getCreated_at() {
+    return created_at;
   }
 
-  public void setCreatedAt(Date createdAt) {
-    this.createdAt = createdAt;
+  public void setCreated_at(LocalDate created_at) {
+    this.created_at = created_at;
   }
 
-  public Date getUpdatedAT() {
-    return updatedAT;
+  public LocalDate getUpdate_at() {
+    return update_at;
   }
 
-  public void setUpdatedAT(Date updatedAT) {
-    this.updatedAT = updatedAT;
+  public void setUpdate_at(LocalDate update_at) {
+    this.update_at = update_at;
   }
+
+
 
   @Override
   public String toString() {
-    return "RentalsDTO{" +
+    return "RentalsResponse{" +
       "id=" + id +
       ", name='" + name + '\'' +
       ", surface=" + surface +
       ", price=" + price +
-      ", picture=" + picture +
+      ", picture='" + picture + '\'' +
       ", description='" + description + '\'' +
-      ", ownerId=" + ownerId +
-      ", createdAt=" + createdAt +
-      ", updatedAT=" + updatedAT +
+      ", owner_id=" + owner_id +
+      ", created_at=" + created_at +
+      ", update_at=" + update_at +
       '}';
   }
 
@@ -112,11 +112,11 @@ public class RentalsResponse implements Serializable {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (!(o instanceof RentalsResponse that)) return false;
-    return surface == that.surface && price == that.price && ownerId == that.ownerId && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(picture, that.picture) && Objects.equals(description, that.description) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAT, that.updatedAT);
+    return surface == that.surface && price == that.price && owner_id == that.owner_id && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(picture, that.picture) && Objects.equals(description, that.description) && Objects.equals(created_at, that.created_at) && Objects.equals(update_at, that.update_at);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, surface, price, picture, description, ownerId, createdAt, updatedAT);
+    return Objects.hash(id, name, surface, price, picture, description, owner_id, created_at, update_at);
   }
 }

@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Service
 public class MessagesServiceImpl implements MessagesService {
@@ -26,7 +26,7 @@ public class MessagesServiceImpl implements MessagesService {
 
   @Override
   public MessageDTO save(MessageDTO messageDTO) {
-    messageDTO.setCreatedAt(new Date());
+    messageDTO.setCreatedAt(LocalDate.now());
     return toDto(messageDAO.save(toEntity(messageDTO)));
   }
 

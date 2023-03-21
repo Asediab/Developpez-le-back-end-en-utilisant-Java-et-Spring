@@ -2,8 +2,10 @@ package com.ocr.backend.rentals.web.controller;
 
 
 import com.ocr.backend.payload.MessageResponse;
+import com.ocr.backend.payload.RentalsResponses;
 import com.ocr.backend.rentals.dto.RentalsDTO;
 import com.ocr.backend.rentals.dto.RentalsResponse;
+import com.ocr.backend.rentals.service.FileUploadService;
 import com.ocr.backend.rentals.service.RentalsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -14,14 +16,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.List;
-import java.util.Objects;
+
 
 @RestController
-//TODO change after config Security
 @RequestMapping("api/rentals")
 @SecurityRequirement(name = "bearerAuth")
 @Tag(name = "Rentals", description = "The Rentals API. Contains all the operations that can be performed with a Rentals.")
@@ -30,9 +28,12 @@ public class RentalsController {
   @Autowired
   private RentalsService rentalsService;
 
+  @Autowired
+  private FileUploadService fileUploadService;
+
   @Operation(summary = "Get all rentals")
   @GetMapping()
-  public ResponseEntity<List<RentalsResponse>> getAllRentals() {
+  public ResponseEntity<RentalsResponses> getAllRentals() {
     return ResponseEntity.ok(rentalsService.getAllRentals());
   }
 
@@ -46,10 +47,8 @@ public class RentalsController {
   @Operation(summary = "Save Rentals")
   @PostMapping()
   public ResponseEntity<?> saveRentals(@ModelAttribute("rentals") RentalsDTO rentalsDTO) throws IOException {
-    File outputFile = new File(System.getProperty("src/main/resources/static"), Objects.requireNonNull(rentalsDTO.getPicture().getOriginalFilename()));
-    rentalsDTO.getPicture().transferTo(outputFile);
-    Files.deleteIfExists(outputFile.toPath());
-    RentalsDTO rentalsDTO1 = rentalsService.saveRentals(rentalsDTO, outputFile.getAbsolutePath());
+    String pictureUrl = fileUploadService.saveFile(rentalsDTO.getPicture());
+    RentalsDTO rentalsDTO1 = rentalsService.saveRentals(rentalsDTO, pictureUrl);
     if(rentalsDTO1 != null) {
       return ResponseEntity.ok(new MessageResponse("Rental created !"));
     }

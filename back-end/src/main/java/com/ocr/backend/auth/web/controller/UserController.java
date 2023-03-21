@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-//TODO change after config Security
 @RequestMapping("api/user")
 @SecurityRequirement(name = "bearerAuth")
 @Tag(name = "User", description = "The User API. Contains all the operations that can be performed a User.")

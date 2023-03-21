@@ -1,52 +1,68 @@
 package com.ocr.backend.auth.service.impl;
 
+import com.ocr.backend.auth.config.jwt.JwtUtils;
+import com.ocr.backend.auth.config.services.UserDetailsImpl;
 import com.ocr.backend.auth.dao.UserDAO;
-import com.ocr.backend.auth.model.IAuthenticationFacade;
+import com.ocr.backend.auth.dto.UserMapper;
+import com.ocr.backend.payload.JwtResponse;
 import com.ocr.backend.payload.SingupRequest;
 import com.ocr.backend.auth.dto.UserDTO;
 import com.ocr.backend.auth.model.User;
 import com.ocr.backend.auth.service.UserService;
 import com.ocr.backend.exeption.NotFoundException;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.TypeMap;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-  private final ModelMapper modelMapper = new ModelMapper();
+  private final UserMapper modelMapper;
 
   private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
   private final UserDAO userDAO;
-  @Autowired
-  private IAuthenticationFacade authenticationFacade;
 
-  public UserServiceImpl(UserDAO userDAO) {
+  private final AuthenticationManager authenticationManager;
+
+  private final JwtUtils jwtUtils;
+
+
+  public UserServiceImpl(UserDAO userDAO, AuthenticationManager authenticationManager, JwtUtils jwtUtils, UserMapper modelMapper) {
     this.userDAO = userDAO;
+    this.authenticationManager = authenticationManager;
+    this.jwtUtils = jwtUtils;
+    this.modelMapper = modelMapper;
+
   }
 
   @Override
+  @Transactional
   public void createUser(SingupRequest singupRequest) {
     if (userDAO.findByEmail(singupRequest.getEmail()).isPresent()) {
       throw new IllegalArgumentException("User already exists: " + singupRequest.getEmail());
     }
     String password = encoder.encode(singupRequest.getPassword());
     singupRequest.setPassword(password);
-    singupRequest.setCreatedAt(LocalDateTime.now());
-    toDto(userDAO.save(toEntity(singupRequest)));
+    singupRequest.setCreatedAt(LocalDate.now());
+    modelMapper.toDto(userDAO.save(modelMapper.toEntity(singupRequest)));
   }
 
   @Override
   public UserDTO findById(long id) {
     User user = this.userDAO.findById(id).orElseThrow(() -> new NotFoundException("User with this Id not found"));
-    return toDto(user);
+    return modelMapper.toDto(user);
   }
 
   @Override
@@ -60,16 +76,20 @@ public class UserServiceImpl implements UserService {
     if (!(authentication instanceof AnonymousAuthenticationToken)) {
       String currentUserName = authentication.getName();
       User user = userDAO.findByEmail(currentUserName).orElseThrow(() -> new NotFoundException("User with this Mail not found"));
-      return toDto(user);
+      return modelMapper.toDto(user);
     }
     return null;
   }
 
-  private UserDTO toDto(User userToDto) {
-    return modelMapper.map(userToDto, UserDTO.class);
+  public ResponseEntity<?> createToken(String mail, String password) {
+      Authentication authentication = authenticationManager.authenticate(
+        new UsernamePasswordAuthenticationToken(mail, password));
+
+      SecurityContextHolder.getContext().setAuthentication(authentication);
+      String jwt = jwtUtils.generateJwtToken(authentication);
+      UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+      return ResponseEntity.ok(new JwtResponse(jwt,userDetails.getName(), userDetails.getUsername()));
   }
 
-  private User toEntity(SingupRequest singupRequestToEntity) {
-    return modelMapper.map(singupRequestToEntity, User.class);
-  }
+
 }

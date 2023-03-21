@@ -2,8 +2,10 @@ package com.ocr.backend.rentals.service.impl;
 
 import com.ocr.backend.auth.dao.UserDAO;
 import com.ocr.backend.auth.model.User;
+import com.ocr.backend.payload.RentalsResponses;
 import com.ocr.backend.rentals.dao.RentalsDAO;
 import com.ocr.backend.rentals.dto.RentalsDTO;
+import com.ocr.backend.rentals.dto.RentalsMapper;
 import com.ocr.backend.rentals.dto.RentalsResponse;
 import com.ocr.backend.auth.model.IAuthenticationFacade;
 import com.ocr.backend.rentals.model.Rentals;
@@ -19,8 +21,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -33,23 +35,28 @@ public class RentalsServiceImpl implements RentalsService {
 
   private final UserDAO userDAO;
 
+  private final RentalsMapper mapper;
+
   @Autowired
   private IAuthenticationFacade authenticationFacade;
 
-  public RentalsServiceImpl(RentalsDAO rentalsDAO, UserDAO userDAO) {
+  public RentalsServiceImpl(RentalsDAO rentalsDAO, UserDAO userDAO, RentalsMapper mapper) {
     this.rentalsDAO = rentalsDAO;
     this.userDAO = userDAO;
+    this.mapper = mapper;
   }
 
   @Override
-  public List<RentalsResponse> getAllRentals() {
-    List<RentalsResponse> dtos = new ArrayList<>();
+  public RentalsResponses getAllRentals() {
+    RentalsResponses rentalsResponses = new RentalsResponses(new ArrayList<>());
+    ArrayList<RentalsResponse> responseList = new ArrayList<>();
     List<Rentals> entityList = rentalsDAO.findAll(Sort.by(Sort.DEFAULT_DIRECTION, "id"));
     for (Rentals rentals : entityList) {
-      dtos.add(toResponse(rentals));
+      responseList.add(mapper.toResponse(rentals));
     }
-    if (!dtos.isEmpty()) {
-      return dtos;
+    if (!responseList.isEmpty()) {
+      rentalsResponses.setRentals(responseList);
+      return rentalsResponses;
     } else {
       LOGGER.error("Data base is empty");
       throw new NotFoundException("Data base is empty");
@@ -59,21 +66,19 @@ public class RentalsServiceImpl implements RentalsService {
   @Override
   public RentalsResponse getRentalsById(Long rentalsId) {
     Rentals rentals = rentalsDAO.findById(rentalsId).orElseThrow(() -> new NotFoundException("Rental with this Id not found"));
-    return toResponse(rentals);
+    return mapper.toResponse(rentals);
   }
 
   @Override
   public RentalsDTO saveRentals(RentalsDTO rentalsDTO, String picture) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    LOGGER.info(authentication.toString());
     Rentals rentals = toEntity(rentalsDTO);
     rentals.setPicture(picture);
-    rentals.setCreatedAt(new Date());
+    rentals.setCreatedAt(LocalDate.now());
 
     //TODO change after config Security
     if (!(authentication instanceof AnonymousAuthenticationToken)) {
       String currentUserName = authentication.getName();
-      LOGGER.info(currentUserName);
       User user = userDAO.findByEmail(currentUserName).orElseThrow(() -> new NotFoundException("User with this Mail not found"));
       rentals.setOwnerId(user.getId());
     }
@@ -91,9 +96,9 @@ public class RentalsServiceImpl implements RentalsService {
       rental.setSurface(rentals.getSurface());
       rental.setPrice(rentals.getPrice());
       rental.setDescription(rentals.getDescription());
-      rental.setUpdatedAT(new Date());
+      rental.setUpdatedAT(LocalDate.now());
       rentalsDAO.save(rental);
-      return toResponse(rental);
+      return mapper.toResponse(rental);
     }
     return null;
   }
@@ -106,9 +111,5 @@ public class RentalsServiceImpl implements RentalsService {
     return modelMapper.map(rentalsDTO, Rentals.class);
   }
 
-  private RentalsResponse toResponse(Rentals rentals) {
-    RentalsResponse response = modelMapper.map(rentals, RentalsResponse.class);
-    response.setPicture(rentals.getPicture());
-    return response;
-  }
+
 }

@@ -2,7 +2,7 @@ package com.ocr.backend.payload;
 
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class SingupRequest implements Serializable {
@@ -12,12 +12,12 @@ public class SingupRequest implements Serializable {
 
   private String password;
 
-  private LocalDateTime createdAt;
+  private LocalDate createdAt;
 
   public SingupRequest() {
   }
 
-  public SingupRequest(String email, String name, String password, LocalDateTime createdAt) {
+  public SingupRequest(String email, String name, String password, LocalDate createdAt) {
     this.email = email;
     this.name = name;
     this.password = password;
@@ -48,11 +48,11 @@ public class SingupRequest implements Serializable {
     this.password = password;
   }
 
-  public LocalDateTime getCreatedAt() {
+  public LocalDate getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(LocalDateTime createdAt) {
+  public void setCreatedAt(LocalDate createdAt) {
     this.createdAt = createdAt;
   }
 

@@ -6,7 +6,7 @@ import org.hibernate.annotations.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -29,16 +29,16 @@ public class User {
   private String password;
   @CreatedDate
   @Column(name = "created_at", updatable = false)
-  private LocalDateTime createdAt;
+  private LocalDate createdAt;
 
   @UpdateTimestamp
   @Column(name = "updated_at")
-  private LocalDateTime updatedAt;
+  private LocalDate updatedAt;
 
   public User() {
   }
 
-  public User(Long id, String email, String name, String password, LocalDateTime createdAt, LocalDateTime updatedAt) {
+  public User(Long id, String email, String name, String password, LocalDate createdAt, LocalDate updatedAt) {
     this.id = id;
     this.email = email;
     this.name = name;
@@ -79,19 +79,19 @@ public class User {
     this.password = password;
   }
 
-  public LocalDateTime getCreatedAt() {
+  public LocalDate getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(LocalDateTime createdAt) {
+  public void setCreatedAt(LocalDate createdAt) {
     this.createdAt = createdAt;
   }
 
-  public LocalDateTime getUpdatedAt() {
+  public LocalDate getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(LocalDateTime updatedAt) {
+  public void setUpdatedAt(LocalDate updatedAt) {
     this.updatedAt = updatedAt;
   }
 

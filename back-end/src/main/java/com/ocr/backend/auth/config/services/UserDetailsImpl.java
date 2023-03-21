@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
@@ -20,14 +20,14 @@ public class UserDetailsImpl implements UserDetails {
   @JsonIgnore
   private String password;
 
-  private LocalDateTime createdAt;
+  private LocalDate createdAt;
 
-  private LocalDateTime updatedAt;
+  private LocalDate updatedAt;
 
   public UserDetailsImpl() {
   }
 
-  public UserDetailsImpl(Long id, String mail, String name, String password, LocalDateTime createdAt, LocalDateTime updatedAt) {
+  public UserDetailsImpl(Long id, String mail, String name, String password, LocalDate createdAt, LocalDate updatedAt) {
     this.id = id;
     this.mail = mail;
     this.name = name;
@@ -83,19 +83,19 @@ public class UserDetailsImpl implements UserDetails {
     this.name = name;
   }
 
-  public LocalDateTime getCreatedAt() {
+  public LocalDate getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(LocalDateTime createdAt) {
+  public void setCreatedAt(LocalDate createdAt) {
     this.createdAt = createdAt;
   }
 
-  public LocalDateTime getUpdatedAt() {
+  public LocalDate getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(LocalDateTime updatedAt) {
+  public void setUpdatedAt(LocalDate updatedAt) {
     this.updatedAt = updatedAt;
   }
 

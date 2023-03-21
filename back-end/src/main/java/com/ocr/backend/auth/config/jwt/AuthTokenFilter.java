@@ -1,6 +1,6 @@
 package com.ocr.backend.auth.config.jwt;
 
-import com.ocr.backend.auth.config.services.UserDetailsServiceImpl;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

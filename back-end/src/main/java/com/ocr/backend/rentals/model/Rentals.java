@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -34,10 +34,10 @@ public class Rentals implements Serializable {
   private long ownerId;
 
   @Column(nullable = false)
-  private Date createdAt;
+  private LocalDate createdAt;
 
   @Column(nullable = true)
-  private Date updatedAT;
+  private LocalDate updatedAT;
 
   public Rentals() {
   }
@@ -98,19 +98,19 @@ public class Rentals implements Serializable {
     this.ownerId = ownerId;
   }
 
-  public Date getCreatedAt() {
+  public LocalDate getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(Date createdAt) {
+  public void setCreatedAt(LocalDate createdAt) {
     this.createdAt = createdAt;
   }
 
-  public Date getUpdatedAT() {
+  public LocalDate getUpdatedAT() {
     return updatedAT;
   }
 
-  public void setUpdatedAT(Date updatedAT) {
+  public void setUpdatedAT(LocalDate updatedAT) {
     this.updatedAT = updatedAT;
   }
 }

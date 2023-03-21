@@ -34,7 +34,14 @@ public class WebSecurityConfig {
     "/v3/api-docs/**",
     "/swagger-ui/**",
     "/api/auth/login",
-    "/api/auth/register"
+    "/api/auth/register",
+    "/error",
+    "/static",
+    "/back-end/src/main/resources/static/**",
+    "/src/main/resources/static/**",
+    "/main/resources/static/**",
+    "/resources/static/**",
+    "/static/**"
   };
 
   @Autowired
@@ -84,6 +91,6 @@ public class WebSecurityConfig {
 
   @Bean
   public WebSecurityCustomizer webSecurityCustomizer() {
-    return (web) -> web.ignoring().requestMatchers("/swagger-ui.html/**", "/swagger-ui/**", "/swagger-ui", "/configuration/**", "/swagger-resources/**", "/v2/api-docs", "/webjars/**");
+    return (web) -> web.ignoring().requestMatchers("/swagger-ui.html/**", "/swagger-ui/**", "/swagger-ui", "/configuration/**", "/swagger-resources/**", "/v2/api-docs", "/webjars/**", "/back-end/src/main/resources/static/**");
   }
 }

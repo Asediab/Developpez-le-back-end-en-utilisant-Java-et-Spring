@@ -3,7 +3,7 @@ package com.ocr.backend.rentals.dto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class RentalsDTO implements Serializable {
@@ -15,8 +15,8 @@ public class RentalsDTO implements Serializable {
   private MultipartFile picture;
   private String description;
   private long ownerId;
-  private Date createdAt;
-  private Date updatedAT;
+  private LocalDate createdAt;
+  private LocalDate updatedAT;
 
   public RentalsDTO() {
   }
@@ -77,19 +77,19 @@ public class RentalsDTO implements Serializable {
     this.ownerId = ownerId;
   }
 
-  public Date getCreatedAt() {
+  public LocalDate getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(Date createdAt) {
+  public void setCreatedAt(LocalDate createdAt) {
     this.createdAt = createdAt;
   }
 
-  public Date getUpdatedAT() {
+  public LocalDate getUpdatedAT() {
     return updatedAT;
   }
 
-  public void setUpdatedAT(Date updatedAT) {
+  public void setUpdatedAT(LocalDate updatedAT) {
     this.updatedAT = updatedAT;
   }
 
