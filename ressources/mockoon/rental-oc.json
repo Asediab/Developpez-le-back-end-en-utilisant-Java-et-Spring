@@ -100,7 +100,7 @@
             {
               "target": "body",
               "modifier": "password",
-              "value": "test!31",
+              "value": "test",
               "invert": false,
               "operator": "equals"
             }

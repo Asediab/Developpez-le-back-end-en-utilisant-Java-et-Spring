@@ -10,8 +10,6 @@ import com.ocr.backend.auth.dto.UserDTO;
 import com.ocr.backend.auth.model.User;
 import com.ocr.backend.auth.service.UserService;
 import com.ocr.backend.exeption.NotFoundException;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -49,14 +46,15 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
-  public void createUser(SingupRequest singupRequest) {
+  public User createUser(SingupRequest singupRequest) {
     if (userDAO.findByEmail(singupRequest.getEmail()).isPresent()) {
       throw new IllegalArgumentException("User already exists: " + singupRequest.getEmail());
     }
     String password = encoder.encode(singupRequest.getPassword());
     singupRequest.setPassword(password);
     singupRequest.setCreatedAt(LocalDate.now());
-    modelMapper.toDto(userDAO.save(modelMapper.toEntity(singupRequest)));
+
+    return userDAO.save(modelMapper.toEntity(singupRequest));
   }
 
   @Override

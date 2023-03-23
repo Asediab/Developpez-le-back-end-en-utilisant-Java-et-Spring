@@ -19,8 +19,6 @@ public class AuthController {
 
   private final UserService service;
 
-
-
   public AuthController(UserService service) {
     this.service = service;
   }
@@ -38,13 +36,13 @@ public class AuthController {
         .badRequest()
         .body(new MessageResponse("Error: Email is already taken!"));
     }
+    String password = signUpRequest.getPassword();
     service.createUser(signUpRequest);
-
-    return service.createToken(signUpRequest.getEmail(), signUpRequest.getPassword());
+    return service.createToken(signUpRequest.getEmail(), password);
   }
 
   @Operation(summary = "Get current login user")
-  @SecurityRequirement(name = "bearerAuth")
+  @SecurityRequirement(name = "Bearer Authentication")
   @GetMapping("/me")
   public ResponseEntity<?> getMe() {
     UserDTO userDTO = service.getCurrentUser();

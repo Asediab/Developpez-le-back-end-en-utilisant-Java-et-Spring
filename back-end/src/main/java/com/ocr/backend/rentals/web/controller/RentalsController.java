@@ -16,12 +16,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-
-
 @RestController
 @RequestMapping("api/rentals")
-@SecurityRequirement(name = "bearerAuth")
+@SecurityRequirement(name = "Bearer Authentication")
 @Tag(name = "Rentals", description = "The Rentals API. Contains all the operations that can be performed with a Rentals.")
 public class RentalsController {
 
@@ -46,7 +43,7 @@ public class RentalsController {
 
   @Operation(summary = "Save Rentals")
   @PostMapping()
-  public ResponseEntity<?> saveRentals(@ModelAttribute("rentals") RentalsDTO rentalsDTO) throws IOException {
+  public ResponseEntity<MessageResponse> saveRentals(@ModelAttribute("rentals") RentalsDTO rentalsDTO) {
     String pictureUrl = fileUploadService.saveFile(rentalsDTO.getPicture());
     RentalsDTO rentalsDTO1 = rentalsService.saveRentals(rentalsDTO, pictureUrl);
     if(rentalsDTO1 != null) {
@@ -57,7 +54,7 @@ public class RentalsController {
 
   @Operation(summary = "Modify Rentals by ID")
   @PutMapping("{id}")
-  public ResponseEntity<?> modifyRentals(@Parameter(description = "id of Rentals to be modified")
+  public ResponseEntity<MessageResponse> modifyRentals(@Parameter(description = "id of Rentals to be modified")
                                               @PathVariable("id") Long id,
                                             @ModelAttribute("rentals") RentalsResponse rentalsResponse) {
     RentalsResponse response = rentalsService.updateRentals(rentalsResponse, id);

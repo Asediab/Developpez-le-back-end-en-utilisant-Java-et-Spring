@@ -7,14 +7,12 @@ import com.ocr.backend.rentals.dao.RentalsDAO;
 import com.ocr.backend.rentals.dto.RentalsDTO;
 import com.ocr.backend.rentals.dto.RentalsMapper;
 import com.ocr.backend.rentals.dto.RentalsResponse;
-import com.ocr.backend.auth.model.IAuthenticationFacade;
 import com.ocr.backend.rentals.model.Rentals;
 import com.ocr.backend.rentals.service.RentalsService;
 import com.ocr.backend.exeption.NotFoundException;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -36,9 +34,6 @@ public class RentalsServiceImpl implements RentalsService {
   private final UserDAO userDAO;
 
   private final RentalsMapper mapper;
-
-  @Autowired
-  private IAuthenticationFacade authenticationFacade;
 
   public RentalsServiceImpl(RentalsDAO rentalsDAO, UserDAO userDAO, RentalsMapper mapper) {
     this.rentalsDAO = rentalsDAO;
@@ -76,7 +71,6 @@ public class RentalsServiceImpl implements RentalsService {
     rentals.setPicture(picture);
     rentals.setCreatedAt(LocalDate.now());
 
-    //TODO change after config Security
     if (!(authentication instanceof AnonymousAuthenticationToken)) {
       String currentUserName = authentication.getName();
       User user = userDAO.findByEmail(currentUserName).orElseThrow(() -> new NotFoundException("User with this Mail not found"));

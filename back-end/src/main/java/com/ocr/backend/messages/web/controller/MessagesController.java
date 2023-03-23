@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-//TODO change after config Security
 @RequestMapping("api/messages")
-@SecurityRequirement(name = "bearerAuth")
+@SecurityRequirement(name = "Bearer Authentication")
 @Tag(name = "Message", description = "The Message API. Contains all the operations that can be performed with a Message.")
 public class MessagesController {
   private final MessagesService service;
@@ -27,7 +26,7 @@ public class MessagesController {
 
   @Operation(summary = "Save Message")
   @PostMapping
-  public ResponseEntity<?> saveMessage(@RequestBody MessageDTO messageDTO) {
+  public ResponseEntity<MessageResponse> saveMessage(@RequestBody MessageDTO messageDTO) {
   MessageDTO message = service.save(messageDTO);
   if (message != null) {
     return ResponseEntity.ok(new MessageResponse("Message send with success"));
