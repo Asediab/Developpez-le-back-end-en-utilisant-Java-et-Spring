@@ -13,7 +13,17 @@ This project was generated with:
 
 Git clone:
 
-> git clone https://github.com/Asediab/P3-Full-Stack-portail-locataire
+> git clone https://github.com/Asediab/Developpez-le-back-end-en-utilisant-Java-et-Spring.git
+
+MySQL (MySQL Community Server - GPL):
+
+> Port: 3306
+
+> Create the username and the password (`*`from noted values)
+
+> Create a new schema named: test
+
+> Give rights for this username on the test schema
 
 Set the user's environment variables
 
@@ -45,8 +55,6 @@ Go inside folder:
 
 > cd back-end
 
-Configure your database connection in `back-end/src/main/resources/application.properties`
-
 Install dependencies:
 
 > mvn install
@@ -55,22 +63,8 @@ Launch Back-end:
 
 > mvn spring-boot:run
 
+Data tables and test data will be created automatically using FlyWay
+
 Endpoints are available at http://localhost:8080/
 
 Swagger is available at http://localhost:8080/swagger-ui/index.html#/
-
-## Ressources
-### Postman collection
-
-For Postman import the collection
-
-> ressources/postman/rental.postman_collection.json 
-
-by following the documentation: 
-
-https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman
-
-
-### MySQL
-
-SQL script for creating the schema is available `ressources/sql/script.sql`
