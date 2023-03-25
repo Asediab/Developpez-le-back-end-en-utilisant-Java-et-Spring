@@ -1,12 +1,17 @@
 package com.ocr.backend.auth.model;
 
+import com.ocr.backend.messages.model.Message;
+import com.ocr.backend.rentals.model.Rentals;
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Table;
 import org.hibernate.annotations.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,7 +24,7 @@ public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false,  unique = true)
+  @Column(name = "email", nullable = false,  unique = true)
   private String email;
 
   @Column(name = "name", nullable = false)
@@ -34,6 +39,14 @@ public class User {
   @UpdateTimestamp
   @Column(name = "updated_at")
   private LocalDate updatedAt;
+
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+  @JoinColumn(name = "owner_id")
+  List<Rentals> rentals = new ArrayList<>();
+
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+  @JoinColumn(name = "user_id")
+  List<Message> messages = new ArrayList<>();
 
   public User() {
   }
@@ -93,6 +106,22 @@ public class User {
 
   public void setUpdatedAt(LocalDate updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  public List<Rentals> getRentals() {
+    return rentals;
+  }
+
+  public void setRentals(List<Rentals> rentals) {
+    this.rentals = rentals;
+  }
+
+  public List<Message> getMessages() {
+    return messages;
+  }
+
+  public void setMessages(List<Message> messages) {
+    this.messages = messages;
   }
 
   @Override

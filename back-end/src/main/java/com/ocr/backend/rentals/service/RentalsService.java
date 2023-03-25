@@ -4,8 +4,6 @@ import com.ocr.backend.payload.RentalsResponses;
 import com.ocr.backend.rentals.dto.RentalsDTO;
 import com.ocr.backend.rentals.dto.RentalsResponse;
 
-import java.util.List;
-
 public interface RentalsService {
 
   RentalsResponses getAllRentals();

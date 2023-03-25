@@ -1,13 +1,17 @@
 package com.ocr.backend.rentals.model;
 
+import com.ocr.backend.messages.model.Message;
 import jakarta.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(name = "RENTALS")
 public class Rentals implements Serializable {
 
   @Id
@@ -15,29 +19,41 @@ public class Rentals implements Serializable {
   @Column(name = "id")
   private Long id;
 
-  @Column(nullable = false)
+  @Column(name = "name",nullable = false)
   private String name;
 
-  @Column(nullable = false)
+  @Column(name = "surface",nullable = false)
   private int surface;
 
-  @Column(nullable = false)
+  @Column(name = "price",nullable = false)
   private int price;
 
-  @Column(nullable = false)
+  @Column(name = "picture",nullable = false)
   private String picture;
 
-  @Column(nullable = false, length = 2000)
+  @Column(name = "description",nullable = false, length = 2000)
   private String description;
 
-  @Column(nullable = false)
+  @Column(name = "owner_id",nullable = false)
   private long ownerId;
 
-  @Column(nullable = false)
+  @Column(name = "created_at",nullable = false)
   private LocalDate createdAt;
 
-  @Column(nullable = true)
+  @Column(name = "updated_at")
   private LocalDate updatedAT;
+
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+  @JoinColumn(name = "rental_id")
+  private List<Message> messages = new ArrayList<>();
+
+  public List<Message> getMessages() {
+    return messages;
+  }
+
+  public void setMessages(List<Message> messages) {
+    this.messages = messages;
+  }
 
   public Rentals() {
   }

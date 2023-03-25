@@ -5,8 +5,6 @@ import com.ocr.backend.messages.dto.MessageDTO;
 import com.ocr.backend.messages.model.Message;
 import com.ocr.backend.messages.service.MessagesService;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,7 +12,6 @@ import java.time.LocalDate;
 @Service
 public class MessagesServiceImpl implements MessagesService {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MessagesServiceImpl.class);
   private final ModelMapper modelMapper = new ModelMapper();
 
   private final MessageDAO messageDAO;

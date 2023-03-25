@@ -1,37 +1,43 @@
-CREATE TABLE `USERS` (
-  `id` integer PRIMARY KEY AUTO_INCREMENT,
-  `email` varchar(255),
-  `name` varchar(255),
-  `password` varchar(255),
-  `created_at` timestamp,
-  `updated_at` timestamp
+create table users
+(
+    id         bigint auto_increment
+        primary key,
+    created_at date         null,
+    email      varchar(255) not null,
+    name       varchar(255) not null,
+    password   varchar(255) not null,
+    updated_at date         null,
+    constraint UK_6dotkott2kjsp8vw4d0m25fb7
+        unique (email)
 );
 
-CREATE TABLE `RENTALS` (
-  `id` integer PRIMARY KEY AUTO_INCREMENT,
-  `name` varchar(255),
-  `surface` numeric,
-  `price` numeric,
-  `picture` varchar(255),
-  `description` varchar(2000),
-  `owner_id` integer NOT NULL,
-  `created_at` timestamp,
-  `updated_at` timestamp
+create table rentals
+(
+    id          bigint auto_increment
+        primary key,
+    created_at  date          not null,
+    description varchar(2000) not null,
+    name        varchar(255)  not null,
+    owner_id    bigint        not null,
+    picture     varchar(255)  not null,
+    price       int           not null,
+    surface     int           not null,
+    updated_at  date          null,
+    constraint FKf462yhxa9vd3m2qdmcoixg1fv
+        foreign key (owner_id) references users (id)
 );
 
-CREATE TABLE `MESSAGES` (
-  `id` integer PRIMARY KEY AUTO_INCREMENT,
-  `rental_id` integer,
-  `user_id` integer,
-  `message` varchar(2000),
-  `created_at` timestamp,
-  `updated_at` timestamp
+create table message
+(
+    id         bigint auto_increment
+        primary key,
+    created_at date         null,
+    message    varchar(255) not null,
+    rental_id  bigint       not null,
+    updated_at date         null,
+    user_id    bigint       not null,
+    constraint FK4ywh7dsrn84akh3qs7awbg2qt
+        foreign key (rental_id) references rentals (id),
+    constraint FKpdrb79dg3bgym7pydlf9k3p1n
+        foreign key (user_id) references users (id)
 );
-
-CREATE UNIQUE INDEX `USERS_index` ON `USERS` (`email`);
-
-ALTER TABLE `USERS` ADD FOREIGN KEY (`id`) REFERENCES `RENTALS` (`owner_id`);
-
-ALTER TABLE `USERS` ADD FOREIGN KEY (`id`) REFERENCES `MESSAGES` (`user_id`);
-
-ALTER TABLE `RENTALS` ADD FOREIGN KEY (`id`) REFERENCES `MESSAGES` (`rental_id`);

@@ -10,6 +10,7 @@ import java.time.LocalDate;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(name = "MESSAGE")
 public class Message implements Serializable {
 
   @Id
@@ -17,19 +18,21 @@ public class Message implements Serializable {
   @Column(name = "id")
   private Long id;
 
-  @Column(nullable = false)
+  @Column(name = "rental_id", nullable = false)
   private long rentalId;
 
-  @Column(nullable = false)
+  @Column(name = "user_id", nullable = false)
   private long userId;
 
-  @Column(nullable = false)
+  @Column(name = "message", nullable = false)
   private String message;
 
   @CreatedDate
+  @Column(name = "created_at")
   private LocalDate createdAt;
 
   @LastModifiedDate
+  @Column(name = "updated_at")
   private LocalDate updatedAt;
 
   public Message() {
