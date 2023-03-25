@@ -25,6 +25,16 @@ MySQL (MySQL Community Server - GPL):
 
 > Give rights for this username on the test schema
 
+MySQL (MySQL Community Server - GPL):
+
+> Port: 3306
+
+> Create the username and the password (`*`from noted values)
+
+> Create a new schema named: test
+
+> Give rights for this username on the test schema
+
 Set the user's environment variables
 
 > Variable for MySQL password: `DATA_SOURSCE_PASS`
