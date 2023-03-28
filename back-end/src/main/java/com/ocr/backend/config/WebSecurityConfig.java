@@ -2,7 +2,7 @@ package com.ocr.backend.config;
 
 import com.ocr.backend.config.jwt.AuthEntryPointJwt;
 import com.ocr.backend.config.jwt.AuthTokenFilter;
-import com.ocr.backend.config.services.UserDetailsServiceImpl;
+import com.ocr.backend.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

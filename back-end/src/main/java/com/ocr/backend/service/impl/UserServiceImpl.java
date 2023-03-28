@@ -1,7 +1,6 @@
 package com.ocr.backend.service.impl;
 
 import com.ocr.backend.config.jwt.JwtUtils;
-import com.ocr.backend.config.services.UserDetailsImpl;
 import com.ocr.backend.dao.UserDAO;
 import com.ocr.backend.dto.UserMapper;
 import com.ocr.backend.model.User;

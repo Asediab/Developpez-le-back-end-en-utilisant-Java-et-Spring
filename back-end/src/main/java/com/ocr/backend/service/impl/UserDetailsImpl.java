@@ -1,4 +1,4 @@
-package com.ocr.backend.config.services;
+package com.ocr.backend.service.impl;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;

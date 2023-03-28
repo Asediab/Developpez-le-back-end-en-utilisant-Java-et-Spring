@@ -1,4 +1,4 @@
-package com.ocr.backend.config.services;
+package com.ocr.backend.service.impl;
 
 import com.ocr.backend.dao.UserDAO;
 import com.ocr.backend.model.User;

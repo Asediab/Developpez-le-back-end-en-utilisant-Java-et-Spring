@@ -1,7 +1,7 @@
 package com.ocr.backend.config.jwt;
 
 
-import com.ocr.backend.config.services.UserDetailsImpl;
+import com.ocr.backend.service.impl.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
