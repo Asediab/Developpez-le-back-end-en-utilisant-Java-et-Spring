@@ -10,30 +10,20 @@ This project was generated with:
 > [Spring Security](https://spring.io/projects/spring-security) version 6.0.0.
 
 ## Start the project
-
 Git clone:
 
 > git clone https://github.com/Asediab/Developpez-le-back-end-en-utilisant-Java-et-Spring.git
 
-MySQL (MySQL Community Server - GPL):
+Install MySQL (MySQL Community Server - GPL):
 
 > Port: 3306
 
-> Create the username and the password (`*`from noted values)
+> Create the username and the password 
 
 > Create a new schema named: test
 
 > Give rights for this username on the test schema
 
-MySQL (MySQL Community Server - GPL):
-
-> Port: 3306
-
-> Create the username and the password (`*`from noted values)
-
-> Create a new schema named: test
-
-> Give rights for this username on the test schema
 
 Set the user's environment variables
 
@@ -73,8 +63,16 @@ Launch Back-end:
 
 > mvn spring-boot:run
 
-Data tables and test data will be created automatically using FlyWay
+The data tables and test data will be created automatically using FlyWay.
+
+
+If you want to change any configuration you can modify `back-end/src/main/resources/application.properties`
 
 Endpoints are available at http://localhost:8080/
 
 Swagger is available at http://localhost:8080/swagger-ui/index.html#/
+
+## Test data set
+> Login: `user@user.com`
+
+> Pass: `test`

@@ -1,7 +1,5 @@
 package com.ocr.backend.payload;
 
-import com.ocr.backend.rentals.dto.RentalsResponse;
-
 import java.util.ArrayList;
 
 public class RentalsResponses {
