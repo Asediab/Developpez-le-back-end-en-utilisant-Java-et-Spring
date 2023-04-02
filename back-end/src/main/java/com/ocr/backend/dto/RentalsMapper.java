@@ -16,7 +16,7 @@ public RentalsMapper() {
   this.modelMapper.createTypeMap(Rentals.class, RentalsResponse.class)
     .addMapping(Rentals::getOwnerId, RentalsResponse::setOwner_id)
     .addMapping(Rentals::getCreatedAt, RentalsResponse::setCreated_at)
-    .addMapping(Rentals::getUpdatedAT, RentalsResponse::setUpdate_at);
+    .addMapping(Rentals::getUpdatedAT, RentalsResponse::setUpdated_at);
 }
 
 

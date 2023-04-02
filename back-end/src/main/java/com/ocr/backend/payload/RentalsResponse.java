@@ -14,7 +14,7 @@ public class RentalsResponse implements Serializable {
   private String description;
   private long owner_id;
   private LocalDate created_at;
-  private LocalDate update_at;
+  private LocalDate updated_at;
 
   public RentalsResponse() {
   }
@@ -83,12 +83,12 @@ public class RentalsResponse implements Serializable {
     this.created_at = created_at;
   }
 
-  public LocalDate getUpdate_at() {
-    return update_at;
+  public LocalDate getUpdated_at() {
+    return updated_at;
   }
 
-  public void setUpdate_at(LocalDate update_at) {
-    this.update_at = update_at;
+  public void setUpdated_at(LocalDate update_at) {
+    this.updated_at = update_at;
   }
 
 
@@ -104,7 +104,7 @@ public class RentalsResponse implements Serializable {
       ", description='" + description + '\'' +
       ", owner_id=" + owner_id +
       ", created_at=" + created_at +
-      ", update_at=" + update_at +
+      ", updated_at=" + updated_at +
       '}';
   }
 
@@ -112,11 +112,11 @@ public class RentalsResponse implements Serializable {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (!(o instanceof RentalsResponse that)) return false;
-    return surface == that.surface && price == that.price && owner_id == that.owner_id && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(picture, that.picture) && Objects.equals(description, that.description) && Objects.equals(created_at, that.created_at) && Objects.equals(update_at, that.update_at);
+    return surface == that.surface && price == that.price && owner_id == that.owner_id && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(picture, that.picture) && Objects.equals(description, that.description) && Objects.equals(created_at, that.created_at) && Objects.equals(updated_at, that.updated_at);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, surface, price, picture, description, owner_id, created_at, update_at);
+    return Objects.hash(id, name, surface, price, picture, description, owner_id, created_at, updated_at);
   }
 }
